@@ -10,4 +10,42 @@ generator client {
 model Dealership {
   id        String   @id @default(uuid())
   name      String
+  locations  Location[]
+}
+
+model Location {
+  id           String   @id @default(uuid())
+  address      String
+  name         String
+  vehicles     Vehicle[]
+  dealership   Dealership @relation(fields: [dealershipId], references: [id])
+  dealershipId String
+}
+
+model Vehicle {
+  id          String   @id @default(uuid())
+  location    Location @relation(fields: [locationId], references: [id])
+  locationId  String      
+  make        String
+  model       String
+  price       Float
+  year        Int
+  sales       Sale[]
+}
+
+model Customer {
+  id        String   @id @default(uuid())
+  firstName      String
+  lastName      String
+  sales         Sale[]
+}
+
+model Sale {
+  id          String   @id @default(uuid())
+  vehicleId   String
+  customerId  String
+  date        DateTime
+  vehicle     Vehicle @relation(fields: [vehicleId], references: [id])
+  customer    Customer @relation(fields: [customerId], references: [id])
+  price       Float
 }
