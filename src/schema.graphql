@@ -1,4 +1,49 @@
 type Query {
-  getVehicle: String!
+  getVehicle(id: ID!): Vehicle
 }
 
+type Mutation {
+  addVehicle(
+    make: String!
+    model: String!
+    year: Int!
+    price: Float!
+    locationId: ID!
+  ): Vehicle
+}
+
+type Dealership {
+  id: ID!
+  name: String!
+  locations: [Location]
+}
+
+type Location {
+  id: ID!
+  name: String!
+  address: String!
+  dealershipId: ID!
+}
+
+type Vehicle {
+  id: ID!
+  make: String!
+  model: String!
+  year: Int!
+  price: Float!
+  locationId: ID!
+}
+
+type Customer {
+  id: ID!
+  firstName: String!
+  lastName: String!
+}
+
+type Sale {
+  id: ID!
+  vehicleId: ID!
+  customerId: ID!
+  price: Float!
+  date: String!
+}
