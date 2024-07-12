@@ -1,0 +1,13 @@
+datasource db {
+  provider = "postgresql"
+  url      = "postgresql://postgres:password123@0.0.0.0:5432/mydb?schema=dealership-postgres"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Dealership {
+  id        String   @id @default(uuid())
+  name      String
+}
