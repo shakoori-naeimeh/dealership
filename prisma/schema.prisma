@@ -5,6 +5,7 @@ datasource db {
 
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["fullTextSearch", "fullTextIndex"]
 }
 
 model Dealership {
@@ -31,6 +32,11 @@ model Vehicle {
   price       Float
   year        Int
   sales       Sale[]
+
+  @@fulltext([make])
+  @@fulltext([model])
+  @@fulltext([year])
+  @@fulltext([price])
 }
 
 model Customer {
@@ -38,6 +44,8 @@ model Customer {
   firstName      String
   lastName      String
   sales         Sale[]
+
+  @@fulltext([lastName])
 }
 
 model Sale {

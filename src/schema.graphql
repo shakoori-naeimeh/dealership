@@ -10,6 +10,12 @@ type Mutation {
     price: Float!
     locationId: ID!
   ): Vehicle
+  recordSale(
+    vehicleId: ID!
+    customerId: ID!
+    price: Float!
+    date: String!
+  ): Sale
 }
 
 type Dealership {

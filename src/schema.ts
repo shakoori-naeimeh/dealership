@@ -2,7 +2,7 @@ import 'graphql-import-node';
 import { makeExecutableSchema } from "@graphql-tools/schema";
 import typeDefs from "./schema.graphql";
 import { GraphQLContext } from "./context";
-import { Vehicle } from '@prisma/client';
+import { Vehicle, Sale } from '@prisma/client';
 
 const resolvers = {
   Query: {
@@ -24,6 +24,11 @@ const resolvers = {
 
       return newVehicle;
     },
+    recordSale: async (parent: unknown, args: { vehicleId: string, customerId: string, price: number, date: string }, context: GraphQLContext) => {
+      const sale = await context.prisma.sale.create({ data: { ...args } });
+
+      return sale;
+    }
   },
   Vehicle: {
     id: (parent: Vehicle) => parent.id,
@@ -32,6 +37,14 @@ const resolvers = {
     year: (parent: Vehicle) => parent.year,
     price: (parent: Vehicle) => parent.price,
   },
+  Sale: {
+    id: (parent: Sale) => parent.id,
+    vehicleId: (parent: Sale) => parent.vehicleId,
+    customerId: (parent: Sale) => parent.customerId,
+    price: (parent: Sale) => parent.price,
+    date: (parent: Sale) => parent.date,
+  
+  }
 }
 
 export const schema = makeExecutableSchema({
