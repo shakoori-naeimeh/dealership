@@ -1,10 +1,29 @@
-How to run the code:
-Get the code: `git clone git@github.com:shakoori-naeimeh/dealership.git`
-Setup and start the server: `./setup.sh`
+**How to run the code:**
+- Get the code: `git clone git@github.com:shakoori-naeimeh/dealership.git`
+- Go to project's folder: `cd dealership`
+- Make sure your docker desktop is running
+- Setup and start the server: `./setup.sh`
+
+
+**Test the APIs:**
+
+After the server is up and running, go to localhost:3000/graphql and try the query below:
+
+```
+query {
+  getVehicles(make: "tesla") {
+    id
+    make
+    model
+    year
+    price
+  }
+}
+```
 
 Prisma ships with a powerful database GUI. Run Prisma Studio to see the tables: `npx prisma studio`
 
-Data model:
+**Data model:**
 
 ![alt text](Dealership.svg)
 
