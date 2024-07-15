@@ -27,7 +27,7 @@ Prisma ships with a powerful database GUI. Run Prisma Studio to see the tables: 
 
 ![alt text](Dealership.svg)
 
-APIs:
+**APIs:**
 
 Fetch a `vehicle` with its `id`:
 
