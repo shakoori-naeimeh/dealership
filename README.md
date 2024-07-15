@@ -1,6 +1,5 @@
 How to run the code:
 Get the code: `git clone git@github.com:shakoori-naeimeh/dealership.git`
-Start docker: `docker-compose up`
 Setup and start the server: `./setup.sh`
 
 Prisma ships with a powerful database GUI. Run Prisma Studio to see the tables: `npx prisma studio`
