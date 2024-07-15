@@ -1,8 +1,8 @@
 import 'graphql-import-node';
 import fastify from "fastify";
-import { getGraphQLParameters, processRequest, Request, renderGraphiQL, shouldRenderGraphiQL, sendResult } from "graphql-helix";
+import { getGraphQLParameters, processRequest, Request, renderGraphiQL, shouldRenderGraphiQL, sendResult, ProcessRequestResult, Response } from "graphql-helix";
 import { schema } from "./schema";
-import { contextFactory } from './context';
+import { contextFactory, GraphQLContext } from './context';
 
 async function main() {
   const server = fastify();
@@ -30,7 +30,6 @@ async function main() {
       }
 
       const { operationName, query, variables } = getGraphQLParameters(request);
-
       const result = await processRequest({
         request,
         schema,
@@ -38,7 +37,11 @@ async function main() {
         contextFactory,
         query,
         variables,
-      });
+      }) as Response<GraphQLContext, any>;
+
+      if (result.payload.errors) {
+        throw new Error("We got an error when processing the request in our system. Please try again later.");
+      }
 
       sendResult(result, reply.raw);
     }

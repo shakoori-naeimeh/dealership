@@ -3,6 +3,7 @@ import { makeExecutableSchema } from "@graphql-tools/schema";
 import typeDefs from "./schema.graphql";
 import { GraphQLContext } from "./context";
 import { Vehicle, Sale } from '@prisma/client';
+import { Prisma } from '@prisma/client';
 
 const resolvers = {
   Query: {
@@ -12,6 +13,28 @@ const resolvers = {
           id: args.id,
         },
       });
+    },
+    getVehicles: async (parent: unknown, args: { model: string, make: string, year: number }, context: GraphQLContext) => {
+      if(!args.make && !args.model && !args.year) {
+        throw new Error("Please prvide at lease one search criteria (make, model, year)")
+      }
+
+      const searchCriteria = []
+      if (args.make) {
+        searchCriteria.push({ make: { contains: args.make, mode: 'insensitive' } } as Prisma.VehicleWhereInput);
+      }
+      if (args.model) {
+          searchCriteria.push({ model: { contains: args.model, mode: 'insensitive' } } as Prisma.VehicleWhereInput);
+      }
+      if (args.year) {
+          searchCriteria.push({ year: args.year } as Prisma.VehicleWhereInput);
+      }
+
+      if(searchCriteria.length === 1) {
+        return context.prisma.vehicle.findMany({ where: searchCriteria[0] })
+      } else {
+        return context.prisma.vehicle.findMany({ where: { AND: searchCriteria } })
+      }
     },
   },
   Mutation: {
@@ -43,7 +66,6 @@ const resolvers = {
     customerId: (parent: Sale) => parent.customerId,
     price: (parent: Sale) => parent.price,
     date: (parent: Sale) => parent.date,
-  
   }
 }
 

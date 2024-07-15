@@ -1,5 +1,6 @@
 type Query {
   getVehicle(id: ID!): Vehicle
+  getVehicles(model: String, make: String, year: Int): [Vehicle]!
 }
 
 type Mutation {
