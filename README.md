@@ -29,7 +29,7 @@ Prisma ships with a powerful database GUI. Run Prisma Studio to see the tables: 
 
 **APIs:**
 
-Fetch a `vehicle` with its `id`:
+- Fetch a `vehicle` with its `id`:
 
 ```
 query getVehicle($id: String!) {
@@ -43,7 +43,7 @@ query getVehicle($id: String!) {
 }
 ```
 
-Fetch an array of `vehicle` filtered by any or all of the parameters `make`, `model`, `year`:
+- Fetch an array of `vehicle` filtered by any or all of the parameters `make`, `model`, `year`:
 
 ```
 query getVehicles($make: String, $model: String, $year: Int) {
@@ -57,7 +57,7 @@ query getVehicles($make: String, $model: String, $year: Int) {
 }
 ```
 
-Add a new vehicle:
+- Add a new vehicle:
 
 ```
 mutation addVehicle($make: String!, $model: String!, $year: Int!, $price: Float!, $locationId: String!) {
