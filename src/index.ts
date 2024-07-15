@@ -1,6 +1,6 @@
 import 'graphql-import-node';
 import fastify from "fastify";
-import { getGraphQLParameters, processRequest, Request, renderGraphiQL, shouldRenderGraphiQL, sendResult, ProcessRequestResult, Response } from "graphql-helix";
+import { getGraphQLParameters, processRequest, Request, renderGraphiQL, shouldRenderGraphiQL, sendResult, Response } from "graphql-helix";
 import { schema } from "./schema";
 import { contextFactory, GraphQLContext } from './context';
 
